@@ -92,40 +92,72 @@ Node *buildTree(string str) {
         left = right = NULL;
     }
 };*/
+// Method 1: Solutuion
 
-class Info {
-public:
-	int maxVal;
-	bool isHeap;
-	Info(int a, bool b) {
-		this->maxVal = a;
-		this->isHeap = b;
-	}
-};
+// class Info {
+// public:
+// 	int maxVal;
+// 	bool isHeap;
+// 	Info(int a, bool b) {
+// 		this->maxVal = a;
+// 		this->isHeap = b;
+// 	}
+// };
 
-Info checkMaxHeap(Node* root) {
-	// base Case
-	if(root == NULL) {
-		return Info(INT_MIN, true);
-	}
-	if(root->left == NULL && root->right == NULL) {
-		return Info(root->data, true);
-	}
-	Info leftAns = checkMaxHeap(root->left);
-	Info rightAns = checkMaxHeap(root->right);
-	// 1 case solve karna hai
-	if(root->data > leftAns.maxVal && root->data > rightAns.maxVal && leftAns.isHeap && rightAns.isHeap) {
-		return Info(root->data, true);
-	}
-	else {
-		return Info(max(root->data, max(leftAns.maxVal, rightAns.maxVal)), false);
-	}
-}
+// Info checkMaxHeap(Node* root) {
+// 	// base Case
+// 	if(root == NULL) {
+// 		return Info(INT_MIN, true);
+// 	}
+// 	if(root->left == NULL && root->right == NULL) {
+// 		return Info(root->data, true);
+// 	}
+// 	Info leftAns = checkMaxHeap(root->left);
+// 	Info rightAns = checkMaxHeap(root->right);
+// 	// 1 case solve karna hai
+// 	if(root->data > leftAns.maxVal && root->data > rightAns.maxVal && leftAns.isHeap && rightAns.isHeap) {
+// 		return Info(root->data, true);
+// 	}
+// 	else {
+// 		return Info(max(root->data, max(leftAns.maxVal, rightAns.maxVal)), false);
+// 	}
+// }
 
 class Solution {
   public:
+    int nodeCount(struct Node* root){
+        if(!root) return 0;
+        int l = nodeCount(root->left);
+        int r = nodeCount(root->right);
+        return 1 + (l + r);
+    }
+    bool isCBT(struct Node* root, int i,int &n){
+        if(!root) return true;
+        if(i > n) return false;
+        
+        return isCBT(root->left, 2*i, n) && isCBT(root->right, 2*i+1, n);
+    }
+    bool isMaxOrder(struct Node* root){
+        if(!root) return true;
+        
+        
+        if(root->left && root->data <= root->left->data) return false;
+        if(root->right && root->data <= root->right->data) return false;
+        
+        return isMaxOrder(root->left) && isMaxOrder(root->right);
+        
+    }
+    
+    
     bool isHeap(struct Node* tree) {
-        return checkMaxHeap(tree).isHeap;
+        // Method 1 result call
+        // return checkMaxHeap(tree).isHeap;
+        
+        // Method 2:
+        int n = nodeCount(tree);
+        int i=1;
+        return isCBT(tree, i, n) && isMaxOrder(tree);
+        
     }
 };
 
