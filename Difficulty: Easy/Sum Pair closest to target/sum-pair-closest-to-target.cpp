@@ -10,39 +10,30 @@ using namespace std;
 class Solution {
   public:
     vector<int> sumClosest(vector<int>& arr, int target) {
-        if (arr.size() < 2) return {}; // If there are less than 2 elements, return an empty vector
-    
-        sort(arr.begin(), arr.end());  // Sort the array
-        int closestSum = INT_MAX;      // To store the closest sum
-        int diff = INT_MAX;            // To store the smallest difference
-        int left = 0, right = arr.size() - 1;
-        pair<int, int> result;         // To store the pair with the closest sum
-    
-        while (left < right) {
-            int currentSum = arr[left] + arr[right];
-            int currentDiff = abs(currentSum - target);
-    
-            // If we find a closer sum, update the closest pair
-            if (currentDiff < diff) {
-                diff = currentDiff;
-                closestSum = currentSum;
-                result = {arr[left], arr[right]};
+        if(arr.size() < 2) return {};
+        int n = arr.size();
+        sort(arr.begin(), arr.end());
+        int s = 0; 
+        int e = n-1;
+        int diff=INT_MAX;
+        pair<int, int>ans;
+        while(s<e){
+            int pairSum = arr[s] + arr[e];
+            if(abs(target-pairSum)<diff){
+                
+                diff=min(abs(target-pairSum),diff);
+                ans.first=arr[s];
+                ans.second=arr[e];
             }
-    
-            // Move the pointers based on the current sum comparison with the target
-            if (currentSum < target) {
-                left++;
-            } else {
-                right--;
+            if(pairSum<target){
+                s++;
+            }else if(pairSum>target){
+                e--;
+            }else{
+                return {arr[s], arr[e]};
             }
         }
-    
-        // Return the pair with the closest sum, or an empty vector if no pair is found
-        if (closestSum == INT_MAX) {
-            return {};  // No valid pair found
-        }
-        
-        return {result.first, result.second};
+        return {ans.first, ans.second};
     }
 };
 
