@@ -8,44 +8,37 @@ using namespace std;
 class Solution {
   public:
     int countPairs(vector<int> &arr, int target) {
-        int left = 0;
-        int right = arr.size() - 1;
+        int s = 0;
+        int e = arr.size() - 1;
         int count = 0;
     
-        while (left < right) {
-            int currentSum = arr[left] + arr[right];
-    
-            if (currentSum == target) {
-                if (arr[left] == arr[right]) {
-                    // Handle duplicates where both pointers point to the same value
-                    int freq = right - left + 1;
-                    count += (freq * (freq - 1)) / 2; // Add all combinations of pairs
-                    break;
-                } else {
-                    // Count occurrences of duplicates
-                    int leftFreq = 1, rightFreq = 1;
-    
-                    while (left + 1 < right && arr[left] == arr[left + 1]) {
-                        ++left;
-                        ++leftFreq;
-                    }
-    
-                    while (right - 1 > left && arr[right] == arr[right - 1]) {
-                        --right;
-                        ++rightFreq;
-                    }
-    
-                    count += leftFreq * rightFreq; // Multiply frequencies of left and right
-                    ++left;
-                    --right;
+        while(s<e){
+            int sum = arr[s] + arr[e];
+            if(sum > target) e--;
+            else if(sum < target) s++;
+            else{
+                // sum == target: check redunden tor not
+                int elementS = arr[s];
+                int elementE = arr[e];
+                
+                int countS = 0;
+                int countE = 0;
+                while(s<=e && arr[s] == elementS){
+                    countS++;
+                    s++;
                 }
-            } else if (currentSum < target) {
-                ++left; // Move left pointer
-            } else {
-                --right; // Move right pointer
+                while(s<=e && arr[e] == elementE){
+                    countE++;
+                    e--;
+                }
+                if(elementS == elementE){
+                count+= countS*(countS-1)/2;
+                }
+                else{
+                    count+=countS*countE;
+                }
             }
         }
-
         return count;
     }
 };
