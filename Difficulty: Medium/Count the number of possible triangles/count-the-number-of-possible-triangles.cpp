@@ -8,31 +8,26 @@ class Solution {
   public:
     // Function to count the number of possible triangles.
     int countTriangles(vector<int>& arr) {
-        int n = arr.size();
-        if (n < 3) return 0; // Not enough elements to form a triangle
-    
-        // Sort the array
         sort(arr.begin(), arr.end());
-    
-        int count = 0;
-    
-        // Fix the largest side as arr[k] and use two pointers for the other two sides
-        for (int k = n - 1; k >= 2; --k) {
-            int i = 0, j = k - 1;
-    
-            // Check pairs (arr[i], arr[j]) that satisfy the triangle condition
-            while (i < j) {
-                if (arr[i] + arr[j] > arr[k]) {
-                    // All pairs (arr[i], arr[m]) where i <= m < j will satisfy the condition
-                    count += (j - i);
-                    --j; // Move the right pointer left
-                } else {
-                    ++i; // Move the left pointer right
+        
+        int ans = 0;
+        int n = arr.size();
+        
+        for(int k=n-1; k>=2; k--){
+            int i = 0;
+            int j = k - 1;
+            while(i<j){
+                int twoSideSum = arr[i] + arr[j];
+                if(twoSideSum > arr[k]){
+                    ans+=j-i;
+                    j--;
+                }else{
+                    i++;
                 }
             }
         }
-    
-        return count;
+        return ans;
+        
     }
 };
 
