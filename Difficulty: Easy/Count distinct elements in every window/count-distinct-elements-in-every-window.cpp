@@ -9,33 +9,21 @@ using namespace std;
 class Solution {
   public:
     vector<int> countDistinct(vector<int> &arr, int k) {
-        int n = arr.size();
-        vector<int> result;
-        unordered_map<int, int> freq_map;
-        
-        // Process the first window of size k
-        for (int i = 0; i < k; i++) {
-            freq_map[arr[i]]++;
+        vector<int>result;
+        unordered_map<int, int>mp;
+        for(int i=0; i<k; i++){
+            mp[arr[i]]++;
         }
-        
-        // Store the count of distinct elements in the first window
-        result.push_back(freq_map.size());
-        
-        // Slide the window over the rest of the array
-        for (int i = k; i < n; i++) {
-            // Remove the element going out of the window
-            freq_map[arr[i - k]]--;
-            if (freq_map[arr[i - k]] == 0) {
-                freq_map.erase(arr[i - k]);
+        result.push_back(mp.size());
+        for(int i=k; i<arr.size(); i++){
+            mp[arr[i-k]]--;
+            mp[arr[i]]++;
+            
+            if(mp[arr[i-k]] == 0){
+                mp.erase(arr[i-k]);
             }
-            
-            // Add the new element coming into the window
-            freq_map[arr[i]]++;
-            
-            // Store the count of distinct elements for the current window
-            result.push_back(freq_map.size());
+            result.push_back(mp.size());
         }
-        
         return result;
     }
 };
