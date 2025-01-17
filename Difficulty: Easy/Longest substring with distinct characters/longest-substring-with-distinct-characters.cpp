@@ -8,26 +8,20 @@ using namespace std;
 class Solution {
   public:
     int longestUniqueSubstr(string &s) {
-        unordered_map<char, int> charIndex; // To store the last index of each character
-        int maxLength = 0;
-        int start = 0; // Start index of the current substring
-    
-        for (int end = 0; end < s.length(); end++) {
-            char currentChar = s[end];
-    
-            // If the character is already in the map and its index is within the current window
-            if (charIndex.find(currentChar) != charIndex.end() && charIndex[currentChar] >= start) {
-                // Move the start of the window to the right of the previous occurrence
-                start = charIndex[currentChar] + 1;
+        vector<int>vis(26, false);
+        int maxi = INT_MIN;
+        int l=0, r = 0;
+        while(r<s.size()){
+            while(vis[s[r]-'a']==true){
+                vis[s[l]-'a'] = false;
+                l++;
             }
-    
-            // Update the last index of the current character
-            charIndex[currentChar] = end;
-    
-            // Calculate the current window size and update maxLength
-            maxLength = max(maxLength, end - start + 1);
+            vis[s[r]-'a'] = true;
+            maxi = max(maxi, r-l+1);
+            r++;
         }
-        return maxLength;
+        
+        return maxi;
     }
 };
 
