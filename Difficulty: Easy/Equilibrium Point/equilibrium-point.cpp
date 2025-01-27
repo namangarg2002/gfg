@@ -9,26 +9,19 @@ class Solution {
   public:
     // Function to find equilibrium point in the array.
     int findEquilibrium(vector<int> &arr) {
-        int n = arr.size();
-        if (n < 3) return -1;
-    
-        int totalSum = 0, leftSum = 0;
-    
-        for (int num : arr) {
-            totalSum += num;
+        int totalSum = 0;
+        for(const auto&i:arr){
+            totalSum += i;
         }
-    
-        for (int i = 0; i < n; ++i) {
-            totalSum -= arr[i];  // Right sum is total sum minus current element
-    
-            if (leftSum == totalSum) {
-                return i;  // Return 0-based index
+        
+        int leftSum = 0;
+        for(int i=0; i<arr.size(); i++){
+            if(leftSum == totalSum - leftSum - arr[i]){
+                return i;
             }
-    
-            leftSum += arr[i];  // Update left sum
+            leftSum += arr[i];
         }
-    
-        return -1;  // No equilibrium point found
+        return -1;
     }
 };
 
