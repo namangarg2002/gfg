@@ -9,24 +9,42 @@ class Solution {
 
   public:
     int maxWater(vector<int> &arr) {
-        int left = 0;
-        int right = arr.size() - 1;
-        int max_area = 0;
+        // int left = 0;
+        // int right = arr.size() - 1;
+        // int max_area = 0;
         
-        while (left < right) {
-            int width = right - left;
-            int h = min(arr[left], arr[right]);
-            int area = width * h;
-            max_area = max(max_area, area);
+        // while (left < right) {
+        //     int width = right - left;
+        //     int h = min(arr[left], arr[right]);
+        //     int area = width * h;
+        //     max_area = max(max_area, area);
             
-            if (arr[left] < arr[right]) {
-                left++;
-            } else {
-                right--;
+        //     if (arr[left] < arr[right]) {
+        //         left++;
+        //     } else {
+        //         right--;
+        //     }
+        // }
+    
+        // return max_area;
+        
+        int l = 0;
+        int r = arr.size()-1; 
+        int area = 0;
+        
+        while(l<r){
+            int h = min(arr[l], arr[r]);
+            int w = r-l;
+            
+            area = max(area, h*w);
+            
+            if(arr[l] < arr[r]){
+                l++;
+            }else{
+                r--;
             }
         }
-    
-        return max_area;
+        return area;
     }
 };
 
