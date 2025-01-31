@@ -6,36 +6,50 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    void topoSolveDFS(int src, map<int, bool> &visit, stack<int> &st, vector<vector<int>>& adjList)
-    {
-        visit[src] = true;
-        for (auto child : adjList[src])
+    vector<int> topoSortBFS(int n, vector<vector<int>>& adjList){
+        vector<int> ans;
+        queue<int> q;
+        vector<int> inDegree(n, 0);
+        // initialise inDegree
+        for (int node = 0; node < n; node++)
         {
-          if (!visit[child])
+          for (auto child : adjList[node])
           {
-            topoSolveDFS(child, visit, st, adjList);
+            inDegree[child]++;
           }
         }
-        st.push(src);
+        // push all zero indegree wali node into queue
+        for (int node = 0; node < n; node++)
+        {
+          if (inDegree[node] == 0)
+          {
+            q.push(node);
+          }
+        }
+    
+        // BFS CONCEPT
+        while (!q.empty())
+        {
+          int frontNode = q.front();
+          q.pop();
+          ans.push_back(frontNode);
+          for (int child : adjList[frontNode])
+          {
+            inDegree[child]--;
+            // check for 0
+            if (inDegree[child] == 0)
+            {
+              q.push(child);
+            }
+          }
+        }
+        return ans;
     }
     vector<int> topologicalSort(vector<vector<int>>& adj) {
         int n = adj.size();
-        map<int, bool> visit;
-        stack<int> st;
         
-        for(int i=0; i<n; i++){
-            if(!visit[i]){
-                topoSolveDFS(i, visit, st, adj);
-            }
-        }
+        return topoSortBFS(n, adj);
         
-        vector<int> result;
-        while (!st.empty()) {
-            result.push_back(st.top());
-            st.pop();
-        }
-    
-        return result;
     }
 };
 
