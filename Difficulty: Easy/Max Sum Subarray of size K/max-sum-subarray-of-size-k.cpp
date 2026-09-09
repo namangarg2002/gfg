@@ -1,9 +1,9 @@
 class Solution {
   public:
     int maxSubarraySum(vector<int>& arr, int k) {
-        int n = arr.size();
-        int windowSum = 0;
+        int n = arr.size(); 
         
+        int windowSum = 0;
         for(int i=0; i<k; i++){
             windowSum += arr[i];
         }
@@ -15,7 +15,7 @@ class Solution {
             
             windowSum += arr[i];
             
-            maxSum = max(maxSum, windowSum);
+            maxSum = max(windowSum, maxSum);
         }
         
         return maxSum;
