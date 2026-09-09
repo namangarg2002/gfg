@@ -4,15 +4,23 @@ class Solution {
         int left = 0;
         int right = arr.size()-1;
         while(left < right){
-            if(arr[left] == 0){
+            // skip left index where element is 0
+            while(left < right && arr[left] == 0){
                 left++;
-            }else if(arr[right] == 1){
+            }
+            
+            // skip right index where element is 1
+            while(left < right && arr[right] == 1){
                 right--;
-            }else{
+            }
+            
+            if(left < right){
                 swap(arr[left], arr[right]);
                 left++;
                 right--;
             }
+            
+            
         }
         
     }
