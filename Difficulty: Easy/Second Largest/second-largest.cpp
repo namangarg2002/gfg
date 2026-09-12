@@ -3,12 +3,12 @@ class Solution {
     int getSecondLargest(vector<int> &arr) {
         int largest = -1;
         int secondLargest = -1;
-        for(int i=0; i<arr.size(); i++){
-            if(arr[i] > largest){
+        for(int x: arr){
+            if(x > largest){
                 secondLargest = largest;
-                largest = arr[i];
-            }else if(arr[i] < largest && arr[i] > secondLargest){
-                secondLargest = arr[i];
+                largest = x;
+            }else if(x < largest  && x > secondLargest){
+                secondLargest = x;
             }
         }
         
