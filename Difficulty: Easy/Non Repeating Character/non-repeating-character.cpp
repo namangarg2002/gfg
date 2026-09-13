@@ -2,8 +2,9 @@
 class Solution {
   public:
     char nonRepeatingChar(string &s) {
-        unordered_map<char, int> freq; // character->count
-        for(char &ch: s){
+        unordered_map<char, int> freq;
+        
+        for(char ch: s){
             freq[ch]++;
         }
         
@@ -14,6 +15,5 @@ class Solution {
         }
         
         return '$';
-        
     }
 };
