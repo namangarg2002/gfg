@@ -11,16 +11,17 @@ class Solution {
                 return mid;
             }
             
-            // left side sorted
+            // left sorted array
             if(arr[s] <= arr[mid]){
                 if(arr[s] <= key && key < arr[mid]){
                     e = mid - 1;
                 }else{
                     s = mid + 1;
                 }
-            }else{
-                // right side sorted
-                if(arr[mid] < key && key <= arr[e]){
+            }
+            // right sorted array
+            if(arr[mid] <= arr[e]){
+                if(key > arr[mid] && key <= arr[e]){
                     s = mid + 1;
                 }else{
                     e = mid - 1;
