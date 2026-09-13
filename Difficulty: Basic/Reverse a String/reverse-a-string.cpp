@@ -1,19 +1,15 @@
 class Solution {
   public:
     string reverseString(string& s) {
-        string ans = "";
-        stack<int> st;
-        for(int i=0; i<s.length(); i++){
-            st.push(s[i]);
+        int start = 0;
+        int end = s.length() -1;
+        while(start<=end){
+            swap(s[start], s[end]);
+            start++;
+            end--;
         }
         
-        while(!st.empty()){
-            char ch = st.top();
-            st.pop();
-            ans.push_back(ch);
-        }
-        
-        return ans;
+        return s;
         
     }
 };
