@@ -6,17 +6,18 @@ class Solution {
     	int e = n-1;
     	int ans = INT_MAX;
     	while(s<=e){
-    		int mid = s + (e-s)/2;
-    
-    		// left sorted half
-    		if(arr[s] <= arr[mid]){
-    			ans = min(ans, arr[s]);
-    			s = mid + 1;
-    		}else{
-    			ans = min(ans, arr[mid]);
-    			e = mid - 1;
-    		}
+    	    int mid = s + (e-s)/2;
+    	    
+    	   // left sorted array
+    	   if(arr[s] <= arr[mid]){
+    	       ans = min(ans, arr[s]);
+    	       s = mid + 1;
+    	   }else{
+    	       ans = min(ans, arr[mid]);
+    	       e = mid - 1;
+    	   }
     	}
+    	
     	return ans;
     }
 };
