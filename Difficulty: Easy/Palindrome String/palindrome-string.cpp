@@ -1,18 +1,18 @@
 class Solution {
   public:
     bool isPalindrome(string& s) {
-        int i = 0;
-        int j = s.length() - 1;
-        bool ans = true;
-        while(i<=j){
-            if(s[i] != s[j]){
-                ans = false;
+        int start = 0;
+        int end = s.length() -1;
+        while(start<=end){
+            if(s[start] != s[end]){
+                return false;
+            }else{
+                start++;
+                end--;
             }
-            i++;
-            j--;
         }
         
-        return ans;
+        return true;
         
     }
 };
