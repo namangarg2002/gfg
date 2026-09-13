@@ -17,16 +17,16 @@ class Solution {
         }
         
         count = 0;
-
-        for(int x : arr) {
-            if(x == candidate)
+        for(int x: arr){
+            if(x == candidate){
                 count++;
+            }
         }
-
-        if(count > arr.size() / 2)
-            return candidate;
-
-        return -1;
         
+        if(count > arr.size()/2){
+            return candidate;
+        }
+        
+        return -1;
     }
 };
