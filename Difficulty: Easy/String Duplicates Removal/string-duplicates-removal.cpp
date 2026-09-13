@@ -1,18 +1,16 @@
-// User function template for C++
 class Solution {
   public:
     string removeDuplicates(string &s) {
+        unordered_map<char, int> freq;
         
-        unordered_map<char, bool> mp;
         string ans = "";
-        
-        for(int i=0; i<s.length(); i++){
-            char ch = s[i];
-            if(mp[ch] == false){
-                mp[ch] = true;
+        for(char ch: s){
+            if(freq[ch] == 0){
                 ans.push_back(ch);
+                freq[ch]++;
             }
         }
+        
         
         return ans;
         
